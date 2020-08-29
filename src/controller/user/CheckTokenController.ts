@@ -7,13 +7,13 @@ export class CheckTokenController {
         const userId = res.locals.jwtPayload.userId;
         const userRepository = getRepository(User);
         let user: User;
-
+        console.log(userId);
         try {
             user = await userRepository.findOne(userId);
         } catch (error) {
             res.status(401).send('Пользователь не подтвержден!');
         }
-        console.log(user);
+
         if(user) {
             res.status(200).send(true);
         } else {

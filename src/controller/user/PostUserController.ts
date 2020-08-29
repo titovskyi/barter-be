@@ -11,11 +11,11 @@ export class PostUserController {
     static post = async (req: Request, res: Response) => {
         const { phone, confirmCode } = req.body;
         const userRepository = getRepository(User);
-
+        console.log(phone, confirmCode);
         let user;
 
         try {
-            user = await userRepository.findOne({
+            user = await userRepository.findOneOrFail({
                 where: {
                     phone: phone,
                     confirmCode: confirmCode,
@@ -30,7 +30,7 @@ export class PostUserController {
         );
 
         user.authToken = jwtToken;
-
+        console.log(user);
         const errors = await validate(user);
         if (errors.length > 0) {
             res.status(400).send(errors);
@@ -42,10 +42,11 @@ export class PostUserController {
             res.status(409).send('Ошибка входа!');
         }
 
-        res.status(201).send(
-            JSON.stringify({
-                token: jwtToken,
-            })
-        );
+        // res.status(201).send(
+        //     JSON.stringify({
+        //         token: jwtToken,
+        //     })
+        // );
+        res.status(201).send(user);
     };
 }

@@ -22,17 +22,14 @@ export class LoginController {
             res.status(400).send(errors);
         }
 
-        const confirmCode = Math.floor(Math.random() * (9999 - 1000) + 1000);
+        const confirmCode = Math.floor(Math.random() * (99999 - 10000) + 10000);
         user.confirmCode = confirmCode;
-        console.log(user);
+
         try {
             await userRepository.save(user);
         } catch (error) {
-            console.log(error);
             res.status(409).send('Ошибка регистрации!');
         }
-
         res.status(200).send(confirmCode.toString());
-
     };
 }

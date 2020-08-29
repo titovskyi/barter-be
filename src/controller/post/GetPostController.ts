@@ -12,7 +12,7 @@ export class GetPostController {
         try {
             post = await postRepository.findOneOrFail({
                 where: { id: id, userId: !userId },
-                relations: ['user', 'userLike'],
+                relations: ['user', 'userLike', 'suggestionConnection', 'postConnection'],
             });
         } catch (error) {
             res.status(404).send('Данный товар не найден!');
