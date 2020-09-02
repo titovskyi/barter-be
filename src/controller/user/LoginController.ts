@@ -6,6 +6,7 @@ import { validate } from 'class-validator';
 export class LoginController {
     static login = async (req: Request, res: Response) => {
         const { phone } = req.body;
+        console.log(req.body);
         const userRepository = getRepository(User);
 
         let user: User = await userRepository.findOne({
