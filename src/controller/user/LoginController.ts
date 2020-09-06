@@ -6,8 +6,8 @@ import { validate } from 'class-validator';
 export class LoginController {
     static login = async (req: Request, res: Response) => {
         const { phone } = req.body;
-        console.log(req.body);
         const userRepository = getRepository(User);
+        console.log(phone);
 
         let user: User = await userRepository.findOne({
             where: { phone: phone },
@@ -31,6 +31,8 @@ export class LoginController {
         } catch (error) {
             res.status(409).send('Ошибка регистрации!');
         }
+        // res.status(409).send('Ошибка регистрации!');
+
         res.status(200).send(confirmCode.toString());
     };
 }

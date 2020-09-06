@@ -47,6 +47,8 @@ export class PostUserController {
         //         token: jwtToken,
         //     })
         // );
+        // res.status(409).send('Ошибка входа!');
+
         res.status(201).send(user);
     };
 }
